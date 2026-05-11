@@ -16,7 +16,7 @@ Advanced diagnostic tool for Makita LXT 18V (BL18) and 14.4V (BL14) batteries ba
 
 | Main View | Health and Cells | Charts and History |
 | :---: | :---: | :---: |
-| ![Main](docs/img/Health_Balancing) | ![Details](docs/img/Battery_Status) | ![Graph](docs/img/History_Graph) |
+| ![Main](Makita-OBI-D1-mini-main/docs/img/Health_Balancing) | ![Details](Makita-OBI-D1-mini-main/docs/img/Battery_Status) | ![Graph](Makita-OBI-D1-mini-main/docs/img/History_Graph) |
 
 > [!TIP]
 > Access advanced settings and OTA updates from the gear icon âš™ï¸.
