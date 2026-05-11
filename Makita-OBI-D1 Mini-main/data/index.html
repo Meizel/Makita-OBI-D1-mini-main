@@ -1,0 +1,263 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Makita OBI D1 mini</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./style.css?v=1.5">
+    <script src="./chart.min.js?v=1.5"></script>
+</head>
+
+<body>
+
+    <header class="topbar glass">
+        <div class="header-left">
+            <span class="logo" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                    <path d="M3 8.5A2.5 2.5 0 0 1 5.5 6h13A2.5 2.5 0 0 1 21 8.5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1A2.5 2.5 0 0 1 18.5 18h-13A2.5 2.5 0 0 1 3 15.5v-7Z" />
+                    <path d="M7 9h2v6H7V9Zm4 0h2v6h-2V9Zm4 0h2v6h-2V9Z" />
+                </svg>
+            </span>
+            <div class="title-block">
+                <div class="title">Makita OBI</div>
+                <div class="subtitle" id="subtitle" data-i18n="subtitle">Battery diagnostics</div>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <div class="lang-block system-block">
+                <button id="btnSystem" class="lang icon-btn" title="Settings" aria-label="Settings">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                        <path d="M19.4 13.5c.1-.5.1-1 .1-1.5s0-1-.1-1.5l2-1.5-2-3.5-2.4 1a8 8 0 0 0-2.6-1.5L14 2h-4l-.4 2.5A8 8 0 0 0 7 6L4.6 5l-2 3.5 2 1.5c-.1.5-.1 1-.1 1.5s0 1 .1 1.5l-2 1.5 2 3.5L7 18a8 8 0 0 0 2.6 1.5L10 22h4l.4-2.5A8 8 0 0 0 17 18l2.4 1 2-3.5-2-1.5ZM12 15.5A3.5 3.5 0 1 1 12 8a3.5 3.5 0 0 1 0 7.5Z" />
+                    </svg>
+                </button>
+            </div>
+            <div class="lang-block theme-block">
+                <button id="themeLight" class="lang icon-btn" title="Light mode" aria-label="Light mode">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                        <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0-15a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 17a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1ZM4.2 5.6a1 1 0 0 1 1.4-1.4l.7.7A1 1 0 0 1 4.9 6.3l-.7-.7Zm13.5 13.5a1 1 0 0 1 1.4-1.4l.7.7a1 1 0 0 1-1.4 1.4l-.7-.7ZM2 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm17 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1ZM4.2 18.4l.7-.7a1 1 0 1 1 1.4 1.4l-.7.7a1 1 0 0 1-1.4-1.4ZM17.7 4.9l.7-.7a1 1 0 1 1 1.4 1.4l-.7.7a1 1 0 0 1-1.4-1.4Z" />
+                    </svg>
+                </button>
+                <button id="themeDark" class="lang icon-btn" title="Dark mode" aria-label="Dark mode">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                        <path d="M20.5 14.7A8.7 8.7 0 0 1 9.3 3.5a.9.9 0 0 0-1-.1A10 10 0 1 0 20.6 15.7a.9.9 0 0 0-.1-1Z" />
+                    </svg>
+                </button>
+            </div>
+            <div class="lang-block">
+                <button id="btnEN" class="lang lang-button active">EN</button>
+                <button id="btnNL" class="lang lang-button">NL</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Floating status indicator -->
+        <div class="header-status glass" id="statusWidget">
+            <span id="statusText">Connecting...</span>
+        </div>
+
+        <div id="limitedSupportAlert" class="alert info glass hidden"></div>
+
+        <!-- Command section -->
+        <section class="card glass">
+            <div class="card-header">
+                <h2 data-i18n="sectionTitle">Operations</h2>
+            </div>
+
+            <div class="actions-grid">
+                <div class="switch-container">
+                    <span class="switch-label" id="lblAutoPoll" data-i18n="lbl_auto">Real-time updates</span>
+                    <label class="switch" for="checkAuto">
+                        <input type="checkbox" id="checkAuto" aria-labelledby="lblAutoPoll">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="button-pair">
+                    <button id="btnReadStatic" class="big btn-data" data-i18n="btn_read">Read info</button>
+                    <button id="btnReadDynamic" class="big" disabled data-i18n="btn_dynamic">Read voltages</button>
+                </div>
+
+                <div id="serviceActions" class="service-actions-block hidden">
+                    <div class="button-pair">
+                        <button id="btnClearErrors" class="big btn-danger" disabled data-i18n="btn_clear_err">Reset errors</button>
+                        <button id="btnLed" class="big btn-success" disabled data-i18n="btn_led_test">Test LED</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Battery overview -->
+        <section class="card glass hidden" id="overviewCard">
+            <div class="card-header">
+                <h2 data-i18n="section_overview">Pack overview</h2>
+                <div id="imbalanceBadge" class="imbalance-badge hidden"></div>
+            </div>
+
+            <!-- Information table -->
+            <div class="kv" id="data-table"></div>
+
+            <!-- Cell visualization -->
+            <div class="battery-container">
+                <div class="battery-pack">
+                    <div class="battery-cells" id="cellsArea">
+                        <!-- Cells and numbers are injected here via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="pack-summary" id="packSummary"></div>
+
+            <!-- Advanced diagnostics -->
+            <div class="diag-grid">
+                <div class="diag-item">
+                    <span class="diag-label" data-i18n="lbl_soh">SOH (health)</span>
+                    <div id="sohRing" class="soh-ring">--%</div>
+                    <span id="sohLabel" class="diag-value">---</span>
+                </div>
+                <div class="diag-item">
+                    <span class="diag-label" data-i18n="lbl_temp">Temperatures</span>
+                    <div class="temp-gauges-container">
+                        <div class="temp-gauge">
+                            <div id="tempBar1" class="temp-bar"></div>
+                        </div>
+                        <div class="temp-gauge">
+                            <div id="tempBar2" class="temp-bar"></div>
+                        </div>
+                    </div>
+                    <span id="tempValues" class="diag-value">--&deg;C | --&deg;C</span>
+                </div>
+            </div>
+
+            <!-- Model and comparison -->
+            <div id="modelSection" class="analytics-section hidden">
+                <span class="diag-label" data-i18n="lbl_model_compare">Model comparison (nominal)</span>
+                <div class="model-grid" id="modelComparison">
+                    <!-- Injected by JS -->
+                </div>
+            </div>
+
+            <!-- Imbalance graph (HUD) -->
+            <div class="analytics-section">
+                <span class="diag-label" data-i18n="lbl_imbalance">Cell imbalance (HUD)</span>
+                <div id="imbalanceHUD" class="hud-container">
+                    <!-- Deviation bars are injected by JS -->
+                </div>
+            </div>
+
+            <!-- Voltage history graph -->
+            <div class="analytics-section">
+                <span class="diag-label" data-i18n="lbl_history">History graph (real-time)</span>
+                <div class="chart-container">
+                    <canvas id="historyChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Balancing assistant -->
+            <div id="balanceSection" class="analytics-section hidden">
+                <span class="diag-label balance-warning-label" data-i18n="lbl_balance_title">Manual balancing assistant</span>
+                <div class="balance-assistant" id="balanceAssistant">
+                    <!-- Instructions are injected by JS -->
+                </div>
+            </div>
+
+            <div class="alerts" id="alertsArea"></div>
+
+            <div class="report-block">
+                <button id="btnExport" class="big pro-btn">
+                    <span class="btn-icon icon-inline" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false">
+                            <path d="M6 2h8l4 4v16H6V2Zm7 1.8V7h3.2L13 3.8ZM8 11h8v2H8v-2Zm0 4h8v2H8v-2Z" />
+                        </svg>
+                    </span>
+                    <span data-i18n="lbl_report">Export report</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- System and update section (outside the battery card) -->
+        <section class="system-section hidden" id="systemSection">
+            <div class="card glass">
+                <div class="card-header">
+                    <h2 data-i18n="lbl_system_title">System & FW update</h2>
+                </div>
+                <div class="ota-modern-card">
+                    <div class="ota-status-header">
+                        <div class="ota-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false">
+                                <path d="M4 7.2 12 3l8 4.2-8 4.2-8-4.2Zm1 2.1 6 3.1V21l-6-3.2V9.3Zm14 0v8.5L13 21v-8.6l6-3.1Z" />
+                            </svg>
+                        </div>
+                        <div class="ota-info">
+                            <span class="ota-title" data-i18n="ota_title">Firmware update</span>
+                            <span class="ota-desc" data-i18n="ota_desc">Keep your device up to date with the latest version (.bin).</span>
+                        </div>
+                    </div>
+
+                    <div class="ota-action-area">
+                        <input type="file" id="otaFile" accept=".bin" class="hidden" title="Firmware file">
+                        <button id="btnOta" class="ota-main-btn" data-i18n="btn_ota_select">
+                            Select file
+                        </button>
+                    </div>
+
+                    <div id="otaProgress" class="ota-progress-modern hidden">
+                        <div class="ota-progress-labels">
+                            <span id="otaStatusMsg" data-i18n="ota_msg_uploading">Uploading...</span>
+                            <span id="otaPercent">0%</span>
+                        </div>
+                        <div class="ota-bar-bg">
+                            <div class="ota-bar-fill" id="otaBar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="system-divider">
+
+                <div class="wifi-config-container">
+                    <h3 data-i18n="lbl_wifi_config">WiFi configuration (station mode)</h3>
+                    <div class="input-group">
+                        <input type="text" id="wifiSSID" placeholder="Network name (SSID)"
+                            data-i18n-hold="lbl_wifi_ssid">
+                        <input type="password" id="wifiPass" placeholder="Password" data-i18n-hold="lbl_wifi_pass">
+                    </div>
+                    <button id="btnSaveWifi" class="pro-btn blue-btn">
+                        <span class="btn-icon icon-inline" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false">
+                                <path d="M12 3a18 18 0 0 1 10 3.1l-2.2 2.7A14.3 14.3 0 0 0 12 6.5a14.3 14.3 0 0 0-7.8 2.3L2 6.1A18 18 0 0 1 12 3Zm0 6.2c2.4 0 4.7.8 6.5 2.1l-2.2 2.7A7.5 7.5 0 0 0 12 12.7c-1.6 0-3.1.5-4.3 1.3l-2.2-2.7A11 11 0 0 1 12 9.2Zm0 6.2c1 0 1.9.3 2.6.9L12 19.5l-2.6-3.2c.7-.6 1.6-.9 2.6-.9Z" />
+                            </svg>
+                        </span>
+                        <span data-i18n="btn_save_wifi">Connect to WiFi</span>
+                    </button>
+                    <p class="hint" data-i18n="lbl_wifi_hint">The D1 mini will restart to connect. It will keep the Makita AP as backup.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Debugging / Logs -->
+        <details class="log-spoiler card small glass">
+            <summary id="rawTitle" data-i18n="rawTitle">System console</summary>
+            <pre id="log" class="logbox" data-i18n="log_waiting">Waiting for connection...</pre>
+        </details>
+
+        <div id="notification" class="hidden"></div>
+        <div id="toast-container"></div>
+    </main>
+
+    <footer class="footer">
+        <div id="footerText" data-i18n="footerText">Version 1.4 &bull; Makita OBI &bull; D1 mini</div>
+    </footer>
+
+    <script src="./app.js?v=1.5"></script>
+</body>
+
+</html>
